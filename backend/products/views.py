@@ -42,8 +42,8 @@ class ProductUpdateAPIView(StaffEditorPermissionMixin, generics.UpdateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
-    def perform_update(self, serializer):
-        serializer.save()
+    # def perform_update(self, serializer):
+    #     serializer.save()
 
 
 class ProductDeleteAPIView(StaffEditorPermissionMixin, generics.DestroyAPIView):

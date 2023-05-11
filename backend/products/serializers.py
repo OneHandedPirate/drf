@@ -17,19 +17,19 @@ class ProductInLineSerializer(serializers.Serializer):
 
 
 class ProductSerializer(serializers.ModelSerializer):
-
+    owner = UserPublicSerializer(source='user', read_only=True)
     update_url = serializers.SerializerMethodField(read_only=True)
-    url = serializers.HyperlinkedIdentityField(
-        view_name='product_detail',
-        lookup_field='pk',
-    )
     title = serializers.CharField(validators=[validate_title_length,
                                               validate_title_no_hello,
                                               unique_product_title])
 
     username = serializers.CharField(source='user.username', read_only=True)
-    owner = UserPublicSerializer(source='user', read_only=True)
+    body = serializers.CharField(source='content')
 
+    # url = serializers.HyperlinkedIdentityField(
+    #     view_name='product_detail',
+    #     lookup_field='pk',
+    # )
     # name = serializers.CharField(source='title', read_only=True)
     # email = serializers.EmailField(write_only=True)
     # my_discount = serializers.SerializerMethodField(read_only=True)
@@ -45,12 +45,15 @@ class ProductSerializer(serializers.ModelSerializer):
             'owner',
             'username',
             'pk',
-            'url',
             'update_url',
             'title',
-            'content',
+            'body',
             'price',
             'sale_price',
+            'public',
+            'path',
+            'endpoint',
+            # 'url',
             # 'name',
             # 'email',
             # 'my_discount',
